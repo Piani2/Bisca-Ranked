@@ -112,6 +112,7 @@ input[type='radio'] {
   width: auto;
   min-height: auto;
   margin: 0;
+  accent-color: var(--accent);
 }
 
 .winnerOptions {
@@ -123,7 +124,7 @@ input[type='radio'] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text);
+  width: fit-content;
 }
 
 button {
@@ -137,6 +138,11 @@ button.secondary {
   background: transparent;
   border: 1px solid var(--danger);
   color: #fecaca;
+}
+
+.fullWidth {
+  width: 100%;
+  margin-top: 12px;
 }
 
 .tableWrap {
@@ -169,11 +175,23 @@ th {
   gap: 8px;
 }
 
-.historyFilters {
+.pagination {
+  margin-top: 12px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 8px;
-  margin-bottom: 10px;
+  align-items: center;
+}
+
+.pagination .secondary {
+  border-color: #eab308;
+  color: #fde68a;
+}
+
+.pagination span {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .matchItem {
@@ -189,6 +207,37 @@ th {
   justify-content: space-between;
   gap: 8px;
   align-items: center;
+}
+
+.matchTeams {
+  display: grid;
+  gap: 6px;
+}
+
+.matchSides {
+  display: grid;
+  gap: 4px;
+}
+
+.matchSide {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0b1220;
+}
+
+.matchSide strong {
+  font-size: 0.9rem;
+}
+
+.pointWin {
+  color: #86efac;
+}
+
+.pointLoss {
+  color: #fca5a5;
 }
 
 .matchItem small {
@@ -221,8 +270,7 @@ th {
 }
 
 @media (max-width: 520px) {
-  .grid2,
-  .historyFilters {
+  .pagination {
     grid-template-columns: 1fr;
   }
 }
