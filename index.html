@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bisca Ranked</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header card">
+        <h1>Bisca Ranked</h1>
+        <p>Controle de pontuação estilo MMR para partidas em duplas.</p>
+        <div class="summary">
+          <div>
+            <span id="totalPlayers">0</span>
+            <small>Jogadores</small>
+          </div>
+          <div>
+            <span id="totalMatches">0</span>
+            <small>Partidas</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Novo jogador</h2>
+        <form id="playerForm" class="stack">
+          <input id="playerName" type="text" placeholder="Nome do jogador" maxlength="30" required />
+          <button type="submit">Adicionar jogador</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Nova partida</h2>
+        <form id="matchForm" class="stack">
+          <fieldset>
+            <legend>Dupla A</legend>
+            <div class="grid2">
+              <select id="teamA1" required></select>
+              <select id="teamA2" required></select>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Dupla B</legend>
+            <div class="grid2">
+              <select id="teamB1" required></select>
+              <select id="teamB2" required></select>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Vencedores</legend>
+            <label><input type="radio" name="winner" value="A" required /> Dupla A</label>
+            <label><input type="radio" name="winner" value="B" required /> Dupla B</label>
+          </fieldset>
+
+          <button type="submit">Registrar partida</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Ranking</h2>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Jogador</th>
+                <th>MMR</th>
+                <th>J</th>
+                <th>V</th>
+                <th>D</th>
+                <th>Win%</th>
+              </tr>
+            </thead>
+            <tbody id="rankingBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Histórico de partidas</h2>
+        <ul id="historyList" class="history"></ul>
+      </section>
+
+      <p id="toast" class="toast" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
