@@ -21,6 +21,7 @@
             <small>Partidas</small>
           </div>
         </div>
+        <button id="undoLastActionBtn" type="button" class="secondary fullWidth">Desfazer última ação</button>
       </header>
 
       <section class="card">
@@ -52,8 +53,10 @@
 
           <fieldset>
             <legend>Vencedores</legend>
-            <label><input type="radio" name="winner" value="A" required /> Dupla A</label>
-            <label><input type="radio" name="winner" value="B" required /> Dupla B</label>
+            <div class="winnerOptions">
+              <label class="radioLabel"><input type="radio" name="winner" value="A" required /> Dupla A</label>
+              <label class="radioLabel"><input type="radio" name="winner" value="B" required /> Dupla B</label>
+            </div>
           </fieldset>
 
           <button type="submit">Registrar partida</button>
@@ -83,6 +86,11 @@
       <section class="card">
         <h2>Histórico de partidas</h2>
         <ul id="historyList" class="history"></ul>
+        <div class="pagination">
+          <button id="prevHistoryPageBtn" type="button" class="secondary">Anterior</button>
+          <span id="historyPageInfo">Página 1 de 1</span>
+          <button id="nextHistoryPageBtn" type="button" class="secondary">Próxima</button>
+        </div>
       </section>
 
       <p id="toast" class="toast" role="status" aria-live="polite"></p>
