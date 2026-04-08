@@ -9,11 +9,17 @@ let historyPage = 1;
 const els = {
   playerForm: document.getElementById('playerForm'),
   playerName: document.getElementById('playerName'),
+  editPlayerForm: document.getElementById('editPlayerForm'),
+  editPlayerSelect: document.getElementById('editPlayerSelect'),
+  editPlayerName: document.getElementById('editPlayerName'),
+  deletePlayerBtn: document.getElementById('deletePlayerBtn'),
   matchForm: document.getElementById('matchForm'),
   teamA1: document.getElementById('teamA1'),
   teamA2: document.getElementById('teamA2'),
   teamB1: document.getElementById('teamB1'),
   teamB2: document.getElementById('teamB2'),
+  historyPlayerFilter: document.getElementById('historyPlayerFilter'),
+  historyWinnerFilter: document.getElementById('historyWinnerFilter'),
   rankingBody: document.getElementById('rankingBody'),
   historyList: document.getElementById('historyList'),
   historyPageInfo: document.getElementById('historyPageInfo'),
@@ -60,6 +66,80 @@ function wireEvents() {
     refreshUI();
     els.playerForm.reset();
     toast('Jogador adicionado.');
+  });
+
+  els.editPlayerSelect.addEventListener('change', () => {
+    const player = state.players.find((p) => p.id === els.editPlayerSelect.value);
+    els.editPlayerName.value = player?.name ?? '';
+  });
+
+  els.editPlayerForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const playerId = els.editPlayerSelect.value;
+    if (!playerId) {
+      toast('Selecione um jogador para editar.');
+      return;
+    }
+
+    const newName = els.editPlayerName.value.trim();
+    if (!newName) {
+      toast('Digite o novo nome do jogador.');
+      return;
+    }
+
+    const player = state.players.find((p) => p.id === playerId);
+    if (!player) {
+      toast('Jogador não encontrado.');
+      return;
+    }
+
+    const duplicated = state.players.some((p) => p.id !== playerId && p.name.toLowerCase() === newName.toLowerCase());
+    if (duplicated) {
+      toast('Já existe outro jogador com este nome.');
+      return;
+    }
+
+    player.name = newName;
+    saveState();
+    refreshUI();
+    toast('Nome do jogador atualizado.');
+  });
+
+  els.deletePlayerBtn.addEventListener('click', () => {
+    const playerId = els.editPlayerSelect.value;
+    if (!playerId) {
+      toast('Selecione um jogador para remover.');
+      return;
+    }
+
+    const player = state.players.find((p) => p.id === playerId);
+    if (!player) {
+      toast('Jogador não encontrado.');
+      return;
+    }
+
+    const relatedMatches = state.matches.filter(
+      (m) => m.teamA.includes(playerId) || m.teamB.includes(playerId)
+    ).length;
+
+    const message = relatedMatches
+      ? `Remover ${player.name}? ${relatedMatches} partida(s) deste jogador também serão removidas.`
+      : `Remover ${player.name}?`;
+
+    const ok = confirm(message);
+    if (!ok) return;
+
+    state.players = state.players.filter((p) => p.id !== playerId);
+    state.matches = state.matches.filter(
+      (m) => !m.teamA.includes(playerId) && !m.teamB.includes(playerId)
+    );
+
+    recalculateFromHistory();
+    saveState();
+    refreshUI();
+    els.editPlayerName.value = '';
+    toast('Jogador removido com sucesso.');
   });
 
   els.matchForm.addEventListener('submit', (event) => {
@@ -139,6 +219,14 @@ function wireEvents() {
     saveState();
     refreshUI();
     toast('Partida revertida com sucesso.');
+  });
+
+  els.historyPlayerFilter.addEventListener('change', () => {
+    renderHistory();
+  });
+
+  els.historyWinnerFilter.addEventListener('change', () => {
+    renderHistory();
   });
 }
 
@@ -280,6 +368,28 @@ function renderSelects() {
     if (current && state.players.some((p) => p.id === current)) {
       select.value = current;
     }
+  }
+
+  const currentEditPlayer = els.editPlayerSelect.value;
+  els.editPlayerSelect.innerHTML = [
+    '<option value="">Selecione jogador</option>',
+    ...state.players.map((p) => `<option value="${p.id}">${escapeHtml(p.name)}</option>`)
+  ].join('');
+  if (currentEditPlayer && state.players.some((p) => p.id === currentEditPlayer)) {
+    els.editPlayerSelect.value = currentEditPlayer;
+  } else {
+    els.editPlayerName.value = '';
+  }
+
+  const currentHistoryPlayer = els.historyPlayerFilter.value || 'all';
+  els.historyPlayerFilter.innerHTML = [
+    '<option value="all">Todos os jogadores</option>',
+    ...state.players.map((p) => `<option value="${p.id}">${escapeHtml(p.name)}</option>`)
+  ].join('');
+  if (currentHistoryPlayer === 'all' || state.players.some((p) => p.id === currentHistoryPlayer)) {
+    els.historyPlayerFilter.value = currentHistoryPlayer;
+  } else {
+    els.historyPlayerFilter.value = 'all';
   }
 }
 

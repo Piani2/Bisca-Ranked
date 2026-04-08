@@ -33,6 +33,20 @@
       </section>
 
       <section class="card">
+        <h2>Gerir jogadores</h2>
+        <form id="editPlayerForm" class="stack">
+          <select id="editPlayerSelect">
+            <option value="">Selecione jogador</option>
+          </select>
+          <input id="editPlayerName" type="text" placeholder="Novo nome do jogador" maxlength="30" />
+          <div class="grid2">
+            <button type="submit">Guardar nome</button>
+            <button id="deletePlayerBtn" type="button" class="secondary">Remover jogador</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
         <h2>Nova partida</h2>
         <form id="matchForm" class="stack">
           <fieldset>
@@ -85,6 +99,16 @@
 
       <section class="card">
         <h2>Histórico de partidas</h2>
+        <div class="historyFilters">
+          <select id="historyPlayerFilter">
+            <option value="all">Todos os jogadores</option>
+          </select>
+          <select id="historyWinnerFilter">
+            <option value="all">Todos os resultados</option>
+            <option value="A">Vitória da Dupla A</option>
+            <option value="B">Vitória da Dupla B</option>
+          </select>
+        </div>
         <ul id="historyList" class="history"></ul>
         <div class="pagination">
           <button id="prevHistoryPageBtn" type="button" class="secondary">Anterior</button>

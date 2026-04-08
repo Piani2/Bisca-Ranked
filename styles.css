@@ -96,7 +96,7 @@ legend {
   color: var(--muted);
 }
 
-input,
+input:not([type='radio']),
 select,
 button {
   border-radius: 10px;
