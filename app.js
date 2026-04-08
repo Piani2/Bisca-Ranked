@@ -25,6 +25,22 @@ const els = {
   toast: document.getElementById('toast')
 };
 
+const API = 'http://localhost:3000';
+
+// Listar
+const res = await fetch(`${API}/itens`);
+const itens = await res.json();
+
+// Criar
+await fetch(`${API}/itens`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ nome: 'Produto', preco: 29.90 })
+});
+
+// Deletar
+await fetch(`${API}/itens/ID_AQUI`, { method: 'DELETE' });
+
 init();
 
 function init() {
