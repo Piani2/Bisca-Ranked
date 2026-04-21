@@ -1,0 +1,5 @@
+{
+  "name": "bisca-ranked",
+  "version": "2.0.0",
+  "description": "Sistema de ranking para Bisca em duplas com MMR"
+}

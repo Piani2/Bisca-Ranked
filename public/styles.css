@@ -1,0 +1,333 @@
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --muted: #9ca3af;
+  --text: #f9fafb;
+  --accent: #22c55e;
+  --danger: #ef4444;
+  --line: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: linear-gradient(180deg, #020617 0%, var(--bg) 100%);
+  color: var(--text);
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  background: color-mix(in srgb, var(--card) 92%, white 8%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.summary {
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+}
+
+.summary div {
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-width: 95px;
+  display: grid;
+}
+
+.summary span {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.summary small {
+  color: var(--muted);
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.stack {
+  display: grid;
+  gap: 10px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+fieldset {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+legend {
+  padding: 0 6px;
+  color: var(--muted);
+}
+
+input:not([type='radio']),
+select,
+button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #0b1220;
+  color: var(--text);
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input:not([type='radio']),
+select {
+  cursor: text;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+button {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+  border: none;
+  transition: background 200ms;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.secondary {
+  background: #374151;
+  color: var(--text);
+}
+
+button.secondary:hover {
+  background: #4b5563;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.radioLabel input {
+  margin: 0;
+  cursor: pointer;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid var(--line);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+tr:hover {
+  background: rgba(34, 197, 94, 0.05);
+}
+
+td.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 20px;
+}
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.history .empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 20px;
+}
+
+.matchItem {
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.matchTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.matchTop strong {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.matchTop small {
+  color: var(--muted);
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+.matchTeams {
+  display: grid;
+  gap: 6px;
+}
+
+.matchTeams > small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.matchSides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.matchSide {
+  padding: 8px;
+  background: rgba(34, 197, 94, 0.05);
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+.matchSide strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.matchSide small {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.pointWin {
+  color: #22c55e;
+}
+
+.pointLoss {
+  color: #ef4444;
+}
+
+.matchItem button {
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pagination button {
+  flex: 0 1 auto;
+  min-width: 100px;
+}
+
+.pagination span {
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-width: 150px;
+  text-align: center;
+}
+
+.historyFilters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: none;
+  z-index: 1000;
+  max-width: 90%;
+  text-align: center;
+}
