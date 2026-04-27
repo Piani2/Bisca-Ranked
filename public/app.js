@@ -188,6 +188,9 @@ async function recordMatch(event) {
     return;
   }
 
+  const ok = confirm('Confirmar registro desta partida?');
+  if (!ok) return;
+
   try {
     await apiCall('POST', '/matches', { teamA, teamB, winner });
     await loadData();
@@ -271,7 +274,7 @@ function renderHistory() {
   }
 
   const byId = new Map(state.players.map((p) => [p.id, p.name]));
-  const items = [...state.matches].reverse();
+  const items = [...state.matches];
   const totalPages = Math.max(1, Math.ceil(items.length / HISTORY_PAGE_SIZE));
   historyPage = Math.min(historyPage, totalPages);
   historyPage = Math.max(1, historyPage);
@@ -288,7 +291,7 @@ function renderHistory() {
       const teamA = `${byId.get(m.team_a_p1) ?? 'Desconhecido'} + ${byId.get(m.team_a_p2) ?? 'Desconhecido'}`;
       const teamB = `${byId.get(m.team_b_p1) ?? 'Desconhecido'} + ${byId.get(m.team_b_p2) ?? 'Desconhecido'}`;
       const winner = m.winner === 'A' ? 'Dupla A' : 'Dupla B';
-      const date = new Date(m.played_at).toLocaleString('pt-BR');
+      const date = formatBrazilDateTime(m.played_at);
 
       const deltas = m.deltas || {};
       const a1Delta = deltas[m.team_a_p1]?.delta ?? 0;
@@ -359,4 +362,24 @@ function escapeHtml(text) {
 function formatPointDelta(delta) {
   const sign = delta >= 0 ? '+' : '';
   return `${sign}${delta}`;
+}
+
+function formatBrazilDateTime(value) {
+  if (!value) return '-';
+
+  const normalized = String(value).includes('T')
+    ? String(value)
+    : String(value).replace(' ', 'T');
+
+  const withZone = /z$/i.test(normalized) ? normalized : `${normalized}Z`;
+  const date = new Date(withZone);
+
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
+  }
+
+  return date.toLocaleString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+    hour12: false
+  });
 }
