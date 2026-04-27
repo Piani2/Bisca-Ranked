@@ -9,15 +9,21 @@
     "dev": "node --watch server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["bisca", "ranking", "mmr"],
+  "engines": {
+    "node": "20.x"
+  },
+  "keywords": [
+    "bisca",
+    "ranking",
+    "mmr"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "sqlite3": "^6.0.1",
-    "cors": "^2.8.5",
     "body-parser": "^1.20.2",
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {}
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.7"
+  }
 }
